@@ -47,38 +47,43 @@ def run_with_restart():
             # Wait for process to complete
             return_code = process.wait()
             
+            # Always restart on ANY exit (normal or crash)
+            # This handles WebSocket disconnections
+            consecutive_failures += 1
+            
             if return_code == 0:
-                print("\nCollector stopped normally")
-                consecutive_failures = 0
-                break
+                print(f"\n🔄 Collector stopped (WebSocket disconnect?)")
             else:
-                consecutive_failures += 1
-                print(f"\nCollector crashed (code {return_code})")
-                print(f"Consecutive failures: {consecutive_failures}/{max_consecutive_failures}")
-                
-                if consecutive_failures >= max_consecutive_failures:
-                    print("\nToo many consecutive failures. Stopping.")
-                    break
-                
-                # Wait before restart
-                wait_time = min(60 * consecutive_failures, 300)  # Max 5 min
-                print(f"Restarting in {wait_time} seconds...")
-                time.sleep(wait_time)
+                print(f"\n❌ Collector crashed (code {return_code})")
+            
+            print(f"Consecutive restarts: {consecutive_failures}/{max_consecutive_failures}")
+            
+            if consecutive_failures >= max_consecutive_failures:
+                print("\n⛔ Too many consecutive failures. Stopping.")
+                break
+            
+            # Wait before restart
+            wait_time = 5  # Fixed 5 second wait
+            print(f"⏳ Restarting in {wait_time} seconds...")
+            time.sleep(wait_time)
+            
+            # Reset failure counter on successful restart
+            consecutive_failures = 0
                 
         except KeyboardInterrupt:
-            print("\n\n Stopping data collection...")
+            print("\n\n⛔ Stopping data collection...")
             process.terminate()
             break
         except Exception as e:
             consecutive_failures += 1
-            print(f"\nUnexpected error: {e}")
+            print(f"\n❌ Unexpected error: {e}")
             print(f"Consecutive failures: {consecutive_failures}/{max_consecutive_failures}")
             
             if consecutive_failures >= max_consecutive_failures:
-                print("\n Too many consecutive failures. Stopping.")
+                print("\n⛔ Too many consecutive failures. Stopping.")
                 break
             
-            time.sleep(60)
+            time.sleep(5)
 
 
 if __name__ == "__main__":
