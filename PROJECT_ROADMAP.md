@@ -7,13 +7,13 @@ Track your progress from data collection to CV-ready project.
 ## 🗓️ Timeline Overview (9 Weeks)
 
 ```
-Week 1-2: Data Collection      [████████████████████] 
-Week 3:   Feature Engineering  [████████████]
-Week 4:   Unsupervised Models  [████████████]
-Week 5:   Regression Models    [████████████]
-Week 6:   Classification       [████████████]
-Week 7-8: Documentation        [████████████████████]
-Week 9:   Publishing & Sharing [████████████]
+Week 1-2: Data Collection             -> (under process) 
+Week 3:   Feature Engineering  
+Week 4:   Unsupervised Models  
+Week 5:   Regression Models    
+Week 6:   Classification       
+Week 7:   Documentation        
+Week 8:   Publishing & Sharing 
 ```
 
 **Total Time Commitment:** ~150-200 hours  
@@ -529,70 +529,8 @@ A checklist for "project complete":
 - [ ] GitHub repo polished
 - [ ] LinkedIn updated
 
-**When ALL checkboxes are ✅ → PROJECT COMPLETE! 🎉**
 
 ---
 
-## 🆘 Getting Unstuck
-
-### Feeling Overwhelmed?
-→ Focus on just the next checkbox  
-→ One hour at a time
-
-### Data Collection Failing?
-→ Check `run_collector_24x7.py` logs  
-→ Verify internet connection  
-→ Contact Coinbase API support
-
-### Models Performing Poorly?
-→ Check feature correlations  
-→ Verify no data leakage  
-→ Try simpler models first  
-→ Document findings anyway
-
-### Running Out of Time?
-→ Cut optional features  
-→ Use templates provided  
-→ Focus on quality over quantity  
-→ Ask for extension if needed
-
-### Need Help?
-→ Stack Overflow for technical issues  
-→ r/MachineLearning for ML questions  
-→ Professor for academic guidance  
-→ Peers for review and feedback
-
----
-
-## 📞 Support Resources
-
-- **Technical Issues:** Stack Overflow, GitHub Issues
-- **ML Questions:** r/MachineLearning, Cross Validated
-- **Code Review:** GitHub PR reviews, peer review
-- **Career Advice:** r/cscareerquestions, LinkedIn
-- **Mental Health:** Take breaks, you've got this!
-
----
-
-## 🎉 Celebrate Progress!
-
-### Small Wins
-- ✅ First day of data collected
-- ✅ First feature engineered
-- ✅ First model trained
-- ✅ First plot created
-
-### Big Wins
-- 🎊 Week 1 complete
-- 🎊 All data collected
-- 🎊 All models trained
-- 🎊 Project published
-
-**Remember:** Progress over perfection!
-
----
-
-*Last Updated: [Date]*  
-*Next Review: [Date]*
-
-**You're building something impressive. Keep going! 💪**
+*Last Updated: [11-6-2025]*  
+*Next Review: [11-9-2025]*

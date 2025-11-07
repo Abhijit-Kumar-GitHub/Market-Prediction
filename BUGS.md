@@ -6,45 +6,9 @@ Someday soon i'll be setting this up on GitHub Issues
 
 ## 🐛 Active Bugs
 
-### [BUG-001] feature_engineer.py fails with pandas import error
-**Status:** 🔴 Open  
-**Priority:** High  
-**Reported:** 2025-11-02  
-**Assigned to:** [Your Name]
 
-**Description:**
-Running `feature_engineer.py` results in:
-```
-Import "pandas" could not be resolved from source
-Exit Code: 1
-```
-
-**Root Cause:**
-Pandas not installed in current Python environment
-
-**Solution:**
-```bash
-pip install pandas numpy
-```
-
-**Steps to Reproduce:**
-1. Run `python feature_engineer.py`
-2. Observe import error
-
-**Resolution:**
-- [ ] Install pandas
-- [ ] Update requirements.txt
-- [ ] Test feature_engineer.py with sample data
-- [ ] Update documentation
-
-**Related Files:**
-- `feature_engineer.py`
-- `requirements.txt`
-
----
-
-### [BUG-002] Example - Order book reconstruction memory leak
-**Status:** 🟢 Resolved (v0.2.0)  
+### [BUG-001] Example - Order book reconstruction memory leak
+**Status:** 🟢 Resolved (v0.0.2)  
 **Priority:** High  
 **Reported:** 2025-10-28  
 **Resolved:** 2025-10-28
@@ -58,7 +22,6 @@ Order book dictionary not clearing old price levels
 **Solution:**
 Added logic to remove price levels when quantity = 0
 
-**Commit:** abc123def
 
 ---
 
@@ -125,7 +88,7 @@ Critical functions lack unit tests
 
 ### [FEATURE-001] Real-time prediction API
 **Priority:** Low (post-MVP)  
-**Effort:** 20 hours
+**Effort:** 3 days
 
 **Description:**
 Flask/FastAPI endpoint for real-time predictions
@@ -139,10 +102,10 @@ Flask/FastAPI endpoint for real-time predictions
 
 ### [FEATURE-002] Multi-asset support
 **Priority:** Medium  
-**Effort:** 5 hours
+**Effort:** 1 day
 
 **Description:**
-Support 10+ cryptocurrencies instead of just BTC/ETH
+Support multiple cryptocurrencies instead of just BTC/ETH
 
 **Changes Needed:**
 - Configurable product list
@@ -151,15 +114,27 @@ Support 10+ cryptocurrencies instead of just BTC/ETH
 
 ---
 
+### [FEATURE-003] Taking realtime data and updating the models periodically automatically
+**Priority:** Low (post MVP)  
+**Effort:** 1 Week  
+
+**Description:**
+Allow realtime updation of model and correct identification of current trends for currect prediction  
+
+**Changes Needed:**  
+Still doing research regarding that
+
+---
+
 ## 📊 Issue Statistics
 
-| Category | Open | In Progress | Resolved |
-|----------|------|-------------|----------|
-| Bugs | 1 | 0 | 1 |
-| Issues | 1 | 0 | 0 |
-| Technical Debt | 2 | 0 | 0 |
-| Features | 2 | 0 | 0 |
-| **Total** | **6** | **0** | **1** |
+| Category | Open  | In Progress | Resolved |
+|----------|-------|-------------|----------|
+| Bugs | 0     | 0 | 1        |
+| Issues | 0     | 0 | 0        |
+| Technical Debt | 2     | 0 | 0        |
+| Features | 3     | 0 | 0        |
+| **Total** | **5** | **0** | **1**    |
 
 ---
 
@@ -222,7 +197,7 @@ How to fix?
 
 ## 🚀 Migration to GitHub Issues
 
-Once you make the repository public:
+Future Plans
 
 1. **Create GitHub Issues from this file**
    - Each bug/issue becomes a GitHub issue
@@ -248,4 +223,4 @@ Once you make the repository public:
 
 ---
 
-*Last Updated: 2025-11-02*
+*Last Updated: 2025-11-06*

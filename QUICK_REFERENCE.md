@@ -133,36 +133,6 @@ git push origin v0.4.0
 
 ---
 
-## ⚡ Quick Commands
-
-### Check Status
-```powershell
-# What files changed?
-git status
-
-# What changed in README?
-git diff README.md
-
-# Recent commits
-git log --oneline -5
-```
-
-### Update Dependencies
-```powershell
-# Install new package
-pip install pandas
-
-# Update requirements.txt
-pip freeze > requirements.txt
-```
-
-### Find TODOs
-```powershell
-# In PowerShell
-Select-String -Path *.md -Pattern "TODO|FIXME|XXX|TBD"
-```
-
----
 
 ## 📊 Weekly Checklist
 
@@ -312,18 +282,6 @@ Select-String -Path *.md -Pattern "TODO|FIXME|XXX|TBD"
 
 ---
 
-## 💡 Pro Tips
-
-✅ **Document as you code** - Don't leave it for later  
-✅ **Commit often** - Small, logical commits with clear messages  
-✅ **Update weekly** - Set a recurring reminder  
-✅ **Use templates** - Consistency is professional  
-✅ **Test links** - Broken links look unprofessional  
-✅ **Spell check** - Grammarly is your friend  
-✅ **Get feedback** - Have someone review your README  
-
----
-
 ## 🔗 Quick Links
 
 - [CHANGELOG format](https://keepachangelog.com/)
@@ -333,6 +291,4 @@ Select-String -Path *.md -Pattern "TODO|FIXME|XXX|TBD"
 
 ---
 
-**Print this page and keep it visible while coding!**
-
-*Last Updated: 2025-11-02*
+*Last Updated: 2025-11-06*

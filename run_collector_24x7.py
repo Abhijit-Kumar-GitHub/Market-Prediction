@@ -19,18 +19,30 @@ def run_with_restart():
             print(f"Starting data collector at {datetime.now()}")
             print(f"{'='*60}\n")
             
-            # Run the collector
+            # Run the collector with unbuffered output
+            # Set PYTHONUNBUFFERED to force unbuffered output
+            env = os.environ.copy()
+            env['PYTHONUNBUFFERED'] = '1'
+            
             process = subprocess.Popen(
-                ['python', 'data_collector.py'],
+                ['python', '-u', 'data_collector.py'],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
-                bufsize=1
+                bufsize=0,  # Completely unbuffered
+                universal_newlines=True,
+                env=env
             )
             
-            # Stream output
-            for line in process.stdout:
-                print(line, end='')
+            # Stream output in real-time
+            while True:
+                line = process.stdout.readline()
+                if not line and process.poll() is not None:
+                    break
+                if line:
+                    print(line, end='', flush=True)
+                    import sys
+                    sys.stdout.flush()
             
             # Wait for process to complete
             return_code = process.wait()

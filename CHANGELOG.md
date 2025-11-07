@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.3.0] - 2025-11-02
+## [0.0.3] - 2025-11-02
 
 ### Added
 - Feature engineering pipeline (`feature_engineer.py`)
@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.2.0] - 2025-10-28
+## [0.0.2] - 2025-10-28
 
 ### Added
 - 24/7 data collection wrapper (`run_collector_24x7.py`)
@@ -54,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.1.0] - 2025-10-27
+## [0.0.1] - 2025-10-27
 
 ### Added
 - Initial data collector (`data_collector.py`)
@@ -66,17 +66,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Version History
+✅ Complete
+🟡 In Progress
+🔴 Planned
 
-| Version | Date | Description | Status |
-|---------|------|-------------|--------|
-| 0.1.0 | Oct 27, 2025 | Initial data collector | ✅ Complete |
-| 0.2.0 | Oct 28, 2025 | 24/7 collection system | ✅ Complete |
-| 0.3.0 | Nov 02, 2025 | Feature engineering | 🟡 In Progress |
-| 0.4.0 | TBD | Unsupervised learning | 🔴 Planned |
-| 0.5.0 | TBD | Supervised learning (regression) | 🔴 Planned |
-| 0.6.0 | TBD | Supervised learning (classification) | 🔴 Planned |
-| 0.7.0 | TBD | Model comparison & evaluation | 🔴 Planned |
-| 1.0.0 | TBD | Complete documentation & publication | 🔴 Planned |
+| Version | Date         | Description | Status |
+|---------|--------------|-------------|--------|
+| 0.1.0 | TBD | Initial data collector | 🟡 In Progress
+ |
+| 0.2.0 | TBD | 24/7 collection system | 🔴 Planned |
+| 0.3.0 | TBD          | Feature engineering | 🔴 Planned |
+| 0.4.0 | TBD          | Unsupervised learning | 🔴 Planned |
+| 0.5.0 | TBD          | Supervised learning (regression) | 🔴 Planned |
+| 0.6.0 | TBD          | Supervised learning (classification) | 🔴 Planned |
+| 0.7.0 | TBD          | Model comparison & evaluation | 🔴 Planned |
+| 1.0.0 | TBD          | Complete documentation & publication | 🔴 Planned |
 
 ---
 
@@ -133,5 +137,4 @@ Example:
 ## Links
 
 - [Project Repository](https://github.com/yourusername/MarketPrediction)
-- [Issue Tracker](https://github.com/yourusername/MarketPrediction/issues)
 - [Project Roadmap](PROJECT_ROADMAP.md)

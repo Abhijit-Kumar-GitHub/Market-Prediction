@@ -1,8 +1,5 @@
 # Documentation & Version Management System - Complete Guide
 
-## 📚 What I've Created for You
-
-You now have a complete documentation and version management system:
 
 ### Core Files
 1. ✅ **CHANGELOG.md** - Version history tracking
@@ -13,7 +10,7 @@ You now have a complete documentation and version management system:
 ### How They Work Together
 
 ```
-Your Daily Work
+   Daily Work
       ↓
    Code Changes
       ↓
@@ -34,7 +31,7 @@ Updates trigger:
 
 ## 🎯 Simple Workflow Summary
 
-### Every Day You Code
+### Every Day Code
 
 1. **Before coding:**
    - Check BUGS.md for issues to work on
@@ -70,7 +67,7 @@ Updates trigger:
 
 ## 📦 Version Management Made Simple
 
-### When Do I Change Version?
+### Updation Rules:
 
 **Big milestone complete?** → Bump MINOR (0.3.0 → 0.4.0)
 - Examples: Data collected, Models trained, Docs complete
@@ -81,7 +78,7 @@ Updates trigger:
 **Project complete?** → Bump to 1.0.0
 - When: Everything done and published
 
-### How Do I Change Version?
+### How to update version:
 
 ```bash
 # Step 1: Update CHANGELOG.md
@@ -105,7 +102,7 @@ git push origin v0.4.0  # if you tagged
 
 ## 🐛 Bug Tracking Made Simple
 
-### I Found a Bug - Now What?
+### After discovering any bug:
 
 1. **Open BUGS.md**
 2. **Add to "Active Bugs":**
@@ -124,7 +121,7 @@ git push origin v0.4.0  # if you tagged
 
 3. **Work on it when ready**
 
-### I Fixed a Bug - Now What?
+### After fixing any bug:
 
 1. **Update BUGS.md:**
    ```markdown
@@ -146,7 +143,7 @@ git push origin v0.4.0  # if you tagged
 
 ---
 
-## 📝 README Updates Made Simple
+## 📝 README Updates Rule:
 
 ### Stage 1: While Building (Weeks 1-6)
 Keep it simple with status updates:
@@ -203,31 +200,6 @@ git commit -m "refactor: Optimize feature engineering"
 
 ---
 
-## ⚡ Quick Commands Reference
-
-### Git Basics
-```bash
-git status              # What changed?
-git diff README.md      # What changed in README?
-git log --oneline -5    # Recent commits
-git add .               # Stage all changes
-git commit -m "message" # Commit
-git push                # Upload to GitHub
-```
-
-### Dependencies
-```bash
-pip install package     # Install new package
-pip freeze > requirements.txt  # Update requirements
-```
-
-### Search for TODOs
-```powershell
-Select-String -Path *.md -Pattern "TODO|FIXME|TBD"
-```
-
----
-
 ## 📋 Weekly Checklist
 
 **Friday EOD (or weekly):**
@@ -252,37 +224,14 @@ Select-String -Path *.md -Pattern "TODO|FIXME|TBD"
 - [ ] Spell checked everything
 - [ ] All links work
 - [ ] Fresh clone and test: `git clone ... && pip install -r requirements.txt`
+
 - [ ] Screenshots/plots are current
 
 ---
 
-## 💡 Pro Tips
+## 🎓 Example
 
-### 1. Document As You Go
-❌ "I'll document later" = Never documents  
-✅ Add docstrings while coding
-
-### 2. Commit Often
-❌ One huge commit at end of day  
-✅ Small commits for each logical change
-
-### 3. Use Templates
-❌ Reinvent format each time  
-✅ Copy from BUGS.md template
-
-### 4. Update Weekly
-❌ Update docs once at the end  
-✅ 15 minutes every Friday
-
-### 5. Keep It Simple
-❌ Over-complicated systems  
-✅ Simple, consistent process
-
----
-
-## 🎓 Real-World Example
-
-Let's say you just completed K-Means clustering:
+Letss take a case where i just added K means clustering:
 
 ### Step 1: Code is working
 ```python
@@ -350,34 +299,21 @@ git push origin v0.4.0
 
 Based on where you are now:
 
-### ✅ What You Have
+### ✅ Done
 - Data collection system working
+  - data_collector.py (scrip to collect and store the data)
+  - run_collector_24x7.py (script to automatically re-run data_collector till a certain limit of failures)
 - Feature engineering code created
 - Full documentation templates
 
-### 🎯 Your Next Actions
-
-**Right Now (Today):**
-1. Fix pandas import issue:
-   ```bash
-   pip install pandas numpy
-   pip freeze > requirements.txt
-   ```
-2. Update BUGS.md with BUG-001 resolved:
-   ```markdown
-   **Status:** 🟢 Resolved (v0.3.1)
-   ```
-3. Update CHANGELOG.md:
-   ```markdown
-   ## [0.3.1] - 2025-11-02
-   ### Fixed
-   - BUG-001: Added pandas to requirements
-   ```
+### 🎯 Next:
 
 **This Week:**
-1. Get 14-day data collection running
-2. Test feature_engineer.py on sample data
-3. Update PROJECT_ROADMAP.md
+1. Update the docs according to current project progression and custormise templates for my need.
+2. Set the correct Version on the Github for the project.
+3. Get 14-day data collection running
+4. Test feature_engineer.py on sample data
+5. Update PROJECT_ROADMAP.md
 
 **Next Week:**
 1. Process full dataset
@@ -386,63 +322,17 @@ Based on where you are now:
 
 ---
 
-## 📚 Your Documentation Files
+## 📚 Documentation Files Definition
 
 Quick overview of what each file does:
 
-| File | What It's For | When To Update |
-|------|---------------|----------------|
+| File | What It's For                 | When To Update |
+|------|-------------------------------|----------------|
 | **README.md** | Project homepage for visitors | Weekly, when showing progress |
-| **CHANGELOG.md** | History of what changed | Each version release |
-| **BUGS.md** | Track issues and fixes | When bugs found/fixed |
-| **QUICK_REFERENCE.md** | Your daily cheatsheet | Rarely (it's reference) |
-| **PROJECT_ROADMAP.md** | Your 9-week timeline | Weekly checkoffs |
-| **requirements.txt** | Python packages needed | When installing new packages |
+| **CHANGELOG.md** | History of what changed       | Each version release |
+| **BUGS.md** | Track issues and fixes        | When bugs found/fixed |
+| **QUICK_REFERENCE.md** | Daily cheatsheet              | Rarely (it's reference) |
+| **PROJECT_ROADMAP.md** | Full Timeline                 | Weekly checkoffs |
+| **requirements.txt** | Python packages needed        | When installing new packages |
 
 ---
-
-## 🤔 FAQ
-
-**Q: Do I need to update CHANGELOG for every commit?**  
-A: No! Only when releasing a version (completing a phase).
-
-**Q: What if I forget to update docs?**  
-A: Set Friday reminder. Spend 15 mins catching up.
-
-**Q: Should I track every tiny bug?**  
-A: Only track bugs that take >30 minutes to fix or affect users.
-
-**Q: Can I simplify this system?**  
-A: Yes! Minimum: README + CHANGELOG. Add others as project grows.
-
-**Q: When should I make first git tag?**  
-A: When you complete Phase 1 (data collection). Tag it v0.1.0.
-
----
-
-## 🎉 Summary
-
-You now have:
-
-✅ **CHANGELOG.md** - Version history  
-✅ **BUGS.md** - Issue tracker  
-✅ **QUICK_REFERENCE.md** - Daily guide  
-✅ **DOCUMENTATION_MANAGEMENT.md** - Detailed instructions  
-
-**What to do:**
-1. Keep QUICK_REFERENCE.md visible while coding
-2. Update BUGS.md when issues arise
-3. Update CHANGELOG.md when releasing versions
-4. Update README.md weekly with progress
-
-**Result:**
-- Professional documentation
-- Easy to maintain
-- Impressive to recruiters
-- Makes your CV worthy!
-
----
-
-**You're all set! Focus on building, the documentation system will guide you. 🚀**
-
-*Questions? Check QUICK_REFERENCE.md first, then DOCUMENTATION_MANAGEMENT.md for details.*
