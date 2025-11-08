@@ -30,7 +30,7 @@ env.bak/
 venv.bak/
 
 # IDE/editor directories and files
-.idea/
+.idea/ 
 .vscode/
 *.sublime-project
 *.sublime-workspace
@@ -48,4 +48,6 @@ venv.bak/
 
 # custom
 
-crypto_data_jsonl/*
+crypto_data_jsonl/
+27Oct25evening/
+
