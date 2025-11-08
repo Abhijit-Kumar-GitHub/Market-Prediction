@@ -1,13 +1,15 @@
 # Bug Tracking & Issue Management
 
 Someday soon i'll be setting this up on GitHub Issues
+🟡 Acknowledged 
+🟢 Resolved (v0.0.2) 
 
 ---
 
 ## 🐛 Active Bugs
 
 
-### [BUG-001] Example - Order book reconstruction memory leak
+### [BUG-001] Order book reconstruction memory leak
 **Status:** 🟢 Resolved (v0.0.2)  
 **Priority:** High  
 **Reported:** 2025-10-28  
@@ -28,7 +30,7 @@ Added logic to remove price levels when quantity = 0
 ## ⚠️ Known Issues
 
 ### [ISSUE-001] WebSocket connection occasionally drops
-**Status:** 🟡 Acknowledged  
+**Status:** 🟢 Resolved (v0.0.2) 
 **Priority:** Medium  
 **Workaround:** Auto-restart script handles this
 
@@ -39,8 +41,7 @@ Coinbase WebSocket disconnects randomly every 6-12 hours
 `run_collector_24x7.py` automatically restarts on disconnect
 
 **Long-term Fix:**
-Implement ping/pong keepalive mechanism
-
+Fixed it by ensuring thats restarts are not just for the crashed but websocket disconnects and normal closure of the script. it will keep on running until it fails consecutively for 8 times. 
 ---
 
 ## 📋 Technical Debt

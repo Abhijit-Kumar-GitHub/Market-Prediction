@@ -17,6 +17,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.0.4] - 2025-11-08
+
+### Added
+- 
+
+### Changed
+- Made the run_collector_24x7.py automatically restart unless it fails consecutively for 8 times, even if websocket disconnects or it closes normally not just crashing
+- Optimized buffer flushing mechanism again to display from run_collector_24x7.py  
+- Refined the docs and customized it to suit my project from the initial template
+
+### Fixed  
+- websocket disconnect causing data collection to stop 
+
+### Misc  
+- Gotten access to Nvidia GDX 1000 Xenon server through LPU allowing me to run the my scripts non stop and collect data from it. 
+
+---
+
 ## [0.0.3] - 2025-11-02
 
 ### Added
@@ -50,7 +68,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Memory leak in order book reconstruction
-- File not found error on first run
 
 ---
 

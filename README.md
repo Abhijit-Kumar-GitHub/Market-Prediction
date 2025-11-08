@@ -292,7 +292,7 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 - Coinbase for providing the Advanced Trade WebSocket API
 - Course Instructor: Mrs. Aashima
-- Data collection infrastructure: Applied, lets hope i get it  
+- Data collection infrastructure: Access to Nvidia lab (GDX 1000 Xenon Server), courtesy of LPU.
 
 ---
 
