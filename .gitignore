@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Virtual environments
+venv/
+ENV/
+env/
+.env/
+.venv/
+env.bak/
+venv.bak/
+
+# IDE/editor directories and files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+
+# Runtime / logs
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# custom
+
+crypto_data_jsonl/*
