@@ -1,0 +1,23 @@
+# GPU Requirements for NVIDIA DGX-A100
+# Install RAPIDS cuDF and cuPy for GPU acceleration
+
+# IMPORTANT: Install base requirements first with compatible pandas version:
+# pip install "pandas>=2.0.0,<2.3.0" numpy matplotlib seaborn scikit-learn xgboost lightgbm shap websocket-client
+
+# Then install GPU packages:
+# pip install -r requirements_gpu.txt
+
+# RAPIDS cuDF (GPU-accelerated pandas)
+# Latest stable versions (auto-selects compatible dependencies)
+cudf-cu12>=25.2.0
+cuml-cu12>=25.2.0  # GPU ML algorithms (optional but useful)
+
+# cuPy (GPU-accelerated numpy)
+# Latest stable version for CUDA 12.x
+cupy-cuda12x>=13.0.0
+
+# Note: If you get dependency errors, use conda instead (recommended):
+# conda create -n rapids-market python=3.12 -y
+# conda activate rapids-market
+# conda install -c rapidsai -c conda-forge -c nvidia cudf=25.02 cuml=25.02 cupy cudatoolkit=12.0 -y
+# pip install websocket-client xgboost lightgbm shap scikit-learn matplotlib seaborn

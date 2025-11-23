@@ -10,10 +10,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### To Do
-- Complete 14-day data collection
-- Train all supervised models
+- Complete orderbook reconstruction (Stage 2) with GPU acceleration
+- Complete ML feature engineering (Stage 3) with GPU acceleration
+- Train all supervised models (Stage 4)
 - Complete technical report
 - Create presentation slides
+
+---
+
+## [0.1.0] - 2025-11-22
+
+### Added - Major Project Restructure
+- **New project structure**: Organized code into `src/`, `config/`, `scripts/`, `tests/` directories
+- **src/data/**: Data collection and conversion modules
+  - `collector.py` - WebSocket data collector (formerly `data_collector.py`)
+  - `converters/jsonl_to_parquet.py` - GPU conversion script (formerly `gpu/stage0_jsonl_to_parquet_v2.py`)
+  - `converters/csv_to_parquet.py` - CSV to Parquet utility
+- **src/utils/**: Shared GPU utilities (gpu_memory, parquet_utils)
+- **config/**: Centralized configuration
+  - `gpu_config.py` - All pipeline settings in one place (formerly `gpu/config.py`)
+- **scripts/**: Runner scripts
+  - `run_collector_24x7.py` - 24/7 collector wrapper
+  - `run_full_pipeline.py` - End-to-end pipeline runner
+- **Archive structure**: `_archive_old_structure/` for legacy files
+  - `old_docs/` - 11 redundant markdown docs archived
+  - `old_scripts/` - 4 duplicate scripts archived
+  - `old_data/` - Old test data archived
+
+### Changed
+- Updated all import paths to use new structure
+- Fixed import statements in conversion scripts to reference `config.gpu_config`
+- Updated runner scripts to point to new file locations
+- Consolidated GPU utilities under `src/utils/`
+
+### Removed
+- Archived 11 redundant documentation files from root:
+  - DOCUMENTATION_SYSTEM_OVERVIEW.md, GPU_ACCELERATION_GUIDE.md, GPU_INSTALLATION_GUIDE.md
+  - GPU_NOTEBOOK_COMPATIBILITY.md, GPU_OPTIMIZATION_SUMMARY.md, PIPELINE_REFERENCE.md
+  - QUICK_GPU_SETUP.md, QUICK_REFERENCE.md, PROJECT_ROADMAP.md, PROJECT_STATUS.md
+  - POWER_BI_QUICK_REF.md
+- Archived duplicate scripts:
+  - `stage1_raw_snapshots.py`, `feature_engineer.py`, `feature_importance_analysis.py` (root)
+  - `gpu/stage0_jsonl_to_parquet.py` (v1, obsolete)
+- Archived old test data: `27Oct25evening/` folder
+
+### Misc
+- This restructure addresses DEBT-001 (hard-coded paths) by centralizing configuration
+- Improves code maintainability and professional appearance for portfolio/CV
+- All existing functionality preserved, just reorganized
+
+---
+
+## [] - 2025-11-
+
+### Added
+- 
+
+### Changed
+- how i am creating snapshots in feature_engineering.py
+
+### Fixed  
+- fixed the freeze/extreme slowness caused when running feature_engineering.py as it caused memory explosion. look up [Bug 002](BUGS.md)
+
+### Misc  
+- 
 
 ---
 
@@ -87,17 +147,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 🟡 In Progress
 🔴 Planned
 
-| Version | Date         | Description | Status |
-|---------|--------------|-------------|--------|
-| 0.1.0 | TBD | Initial data collector | 🟡 In Progress
+| Version | Date       | Description                          | Status                                 |
+|---------|------------|--------------------------------------|----------------------------------------|
+| 0.0.1   | 2025-10-25 | Initial data collector               | ✅ Complete                             
  |
-| 0.2.0 | TBD | 24/7 collection system | 🔴 Planned |
-| 0.3.0 | TBD          | Feature engineering | 🔴 Planned |
-| 0.4.0 | TBD          | Unsupervised learning | 🔴 Planned |
-| 0.5.0 | TBD          | Supervised learning (regression) | 🔴 Planned |
-| 0.6.0 | TBD          | Supervised learning (classification) | 🔴 Planned |
-| 0.7.0 | TBD          | Model comparison & evaluation | 🔴 Planned |
-| 1.0.0 | TBD          | Complete documentation & publication | 🔴 Planned |
+| 0.0.4   | 2025-11-08 | 24/7 collection system               | ✅ Complete(14 days done on 2005-11-21) |
+| 0.1.0   | 2025-11-22 | Complete project restructuring       | ✅ Complete                                    |
+| 0.1.0   | 2025-11-22 | Feature engineering                  | 🟡 In Progress                         |
+| 0.4.0   | TBD        | Unsupervised learning                | 🔴 Planned                             |
+| 0.5.0   | TBD        | Supervised learning (regression)     | 🔴 Planned                             |
+| 0.6.0   | TBD        | Supervised learning (classification) | 🔴 Planned                             |
+| 0.7.0   | TBD        | Model comparison & evaluation        | 🔴 Planned                             |
+| 1.0.0   | TBD        | Complete documentation & publication | 🔴 Planned                             |
 
 ---
 

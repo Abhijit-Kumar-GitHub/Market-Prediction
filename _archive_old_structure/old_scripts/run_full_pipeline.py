@@ -1,0 +1,99 @@
+"""
+QUICK START: Run the entire pipeline
+====================================
+
+This script runs all 3 stages in sequence.
+Perfect for demos or after getting new data.
+
+Usage:
+    python run_full_pipeline.py
+
+Expected runtime on NVIDIA DGX-A100:
+- Stage 1: ~2 minutes (JSONL → CSV)
+- Stage 2: ~15 minutes (48M events → 17K snapshots)
+- Stage 3: ~30 seconds (feature engineering)
+
+Total: ~20 minutes for complete pipeline
+"""
+
+import subprocess
+import sys
+from pathlib import Path
+import time
+
+def run_stage(stage_num, script_name, description):
+    """Run a pipeline stage and track timing"""
+    print("\n" + "="*80)
+    print(f"🚀 STAGE {stage_num}: {description}")
+    print("="*80 + "\n")
+    
+    start_time = time.time()
+    
+    try:
+        result = subprocess.run(
+            [sys.executable, f"data_pipeline/{script_name}"],
+            check=True,
+            capture_output=False
+        )
+        
+        elapsed = time.time() - start_time
+        print(f"\n✅ Stage {stage_num} completed in {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
+        return True
+        
+    except subprocess.CalledProcessError as e:
+        print(f"\n❌ Stage {stage_num} failed with error code {e.returncode}")
+        return False
+
+def main():
+    """Execute full pipeline"""
+    
+    print("\n" + "="*80)
+    print("🏗️  FULL PIPELINE EXECUTION")
+    print("="*80)
+    print("\nThis will run all 3 stages:")
+    print("  1. JSONL → CSV conversion")
+    print("  2. Order book reconstruction (48M events)")
+    print("  3. ML feature engineering")
+    print("\nEstimated time: ~20 minutes on NVIDIA DGX-A100")
+    print("="*80 + "\n")
+    
+    # Confirm
+    response = input("Continue? [Y/n]: ")
+    if response.lower() not in ['', 'y', 'yes']:
+        print("Aborted.")
+        return
+    
+    pipeline_start = time.time()
+    
+    # Stage 1: JSONL → CSV
+    if not run_stage(1, "stage1_raw_snapshots.py", "JSONL → CSV Conversion"):
+        print("\n❌ Pipeline aborted at Stage 1")
+        return
+    
+    # Stage 2: Order Book Reconstruction
+    if not run_stage(2, "stage2_orderbook_builder.py", "Order Book Reconstruction"):
+        print("\n❌ Pipeline aborted at Stage 2")
+        return
+    
+    # Stage 3: ML Features
+    if not run_stage(3, "stage3_ml_features.py", "ML Feature Engineering"):
+        print("\n❌ Pipeline aborted at Stage 3")
+        return
+    
+    # Success!
+    total_time = time.time() - pipeline_start
+    
+    print("\n" + "="*80)
+    print("🎉 PIPELINE COMPLETE!")
+    print("="*80)
+    print(f"\nTotal runtime: {total_time:.1f} seconds ({total_time/60:.1f} minutes)")
+    print("\n📁 Output files:")
+    print("  - datasets/raw_csv/level2_*.csv")
+    print("  - datasets/raw_csv/ticker_*.csv")
+    print("  - datasets/market_snapshots.csv")
+    print("  - datasets/crypto_features.csv")
+    print("\n🔥 Ready for ML modeling!")
+    print("="*80 + "\n")
+
+if __name__ == '__main__':
+    main()

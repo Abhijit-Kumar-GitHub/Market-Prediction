@@ -41,24 +41,69 @@ Test Samples:         XX,XXX
 
 ## 🔧 Technical Architecture
 
+### Project Structure (v0.1.0)
+
+```
+MarketPrediction/
+├── src/                        # Source code (GPU-accelerated)
+│   ├── data/
+│   │   ├── collector.py       # WebSocket data collection
+│   │   └── converters/        # JSONL/CSV → Parquet conversion
+│   ├── preprocessing/         # Orderbook + feature engineering (TODO)
+│   ├── models/               # ML model training (TODO)
+│   └── utils/                # GPU utilities
+├── config/                   # Centralized configuration
+│   └── gpu_config.py        # All paths and settings
+├── scripts/                  # Runner scripts
+│   ├── run_collector_24x7.py    # 24/7 data collection
+│   └── run_full_pipeline.py     # End-to-end pipeline
+├── datasets/                 # Data storage
+│   ├── parquet/             # Converted Parquet files
+│   └── raw_csv/             # Legacy CSV exports
+├── docs/                     # Documentation
+└── crypto_data_jsonl/       # Raw JSONL WebSocket data
+```
+
+See `src/README.md` for detailed module documentation.
+
+### Data Pipeline
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   Data Collection Layer                     │
-│  (data_collector.py - WebSocket → JSONL files)              │
+│                   Stage 0: Data Collection                   │
+│  (src/data/collector.py - WebSocket → JSONL files)          │
+│  • Real-time Level 2 orderbook + ticker data                │
+│  • 24/7 collection with auto-restart                        │
 └───────────────────┬─────────────────────────────────────────┘
                     │
                     ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                 Feature Engineering Layer                   │
-│  (feature_engineer.py - Order Book → ML Features)           │
+│              Stage 1: Format Conversion (GPU)               │
+│  (src/data/converters/ - JSONL → Parquet)                   │
+│  • GPU-accelerated with cuDF                                │
+│  • 10x compression + 20x faster loading                     │
+└───────────────────┬─────────────────────────────────────────┘
+                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────┐
+│           Stage 2: Orderbook Reconstruction (GPU)           │
+│  • Build full orderbook state from updates                  │
+│  • 10-second snapshots for stability                        │
+│  • Calculate order book imbalance, spread, depth            │
+└───────────────────┬─────────────────────────────────────────┘
+                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────┐
+│           Stage 3: Feature Engineering (GPU)                │
 │  • Order Book Imbalance  • Spread Analysis                  │
 │  • Market Depth          • Volatility Metrics               │
 │  • Price Momentum        • Volume Trends                    │
+│  • Rolling windows: 5, 10, 20, 60 snapshots                │
 └───────────────────┬─────────────────────────────────────────┘
                     │
                     ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              Unsupervised Learning (Stage 1)                │
+│              Unsupervised Learning (Stage 4a)               │
 │  • K-Means Clustering    → Market Regime Detection          │
 │  • Hierarchical Clustering → Regime Validation              │
 │  • Association Rules     → Pattern Discovery                │
@@ -66,12 +111,13 @@ Test Samples:         XX,XXX
                     │
                     ▼
 ┌─────────────────────────────────────────────────────────────┐
-│               Supervised Learning (Stage 2)                 │
+│               Supervised Learning (Stage 4b)                │
 │  Regression:                  Classification:               │
 │  • Linear Regression          • Logistic Regression         │
 │  • Polynomial Regression      • Decision Trees              │
 │  • SVR                        • SVM                         │
-│  • Neural Network (MLP)       • Random Forest               │
+│  • XGBoost/LightGBM (GPU)     • Random Forest               │
+│  • Neural Network (MLP)                                     │
 └───────────────────┬─────────────────────────────────────────┘
                     │
                     ▼
@@ -80,6 +126,23 @@ Test Samples:         XX,XXX
 │  • Cross-validation  • Confusion Matrix  • Feature Importance│
 └──────────────────────────────────────────────────────────────┘
 ```
+
+**Current Status:** ✅ Stage 0 (collection) & Stage 1 (conversion) complete | ⏳ Stages 2-4 not started
+
+### Technical Stack
+
+**Hardware:**
+- NVIDIA DGX-A100 (80GB VRAM, 128 CPU cores)
+- 14 days of continuous data collection (~200M+ tick-level events)
+
+**GPU Acceleration:**
+- cuDF + cuPy for GPU-accelerated DataFrame operations
+- PyArrow for efficient Parquet I/O
+- 10-50x speedup vs CPU-only processing
+
+**Data Storage:**
+- Parquet format with Snappy compression (10x compression vs CSV)
+- Date-based partitioning for efficient querying
 
 ## 🚀 Quick Start
 
@@ -125,52 +188,6 @@ python models/clustering_models.py
 ```bash
 # Launch Jupyter notebook
 jupyter notebook notebooks/model_comparison.ipynb
-```
-
-## 📁 Project Structure
-
-```
-MarketPrediction/
-│
-├── data_collector.py           # Real-time data collection
-├── feature_engineer.py         # Feature extraction pipeline
-├── run_collector_24x7.py       # Robust data collection runner
-├── requirements.txt            # Dependencies
-│
-├── crypto_data_jsonl/          # Raw data (JSONL format)
-│   ├── level2_YYYYMMDD.txt
-│   └── ticker_YYYYMMDD.txt
-│
-├── processed_data/             # Engineered features
-│   ├── crypto_features.csv
-│   └── train_test_split/
-│
-├── models/                     # Model implementations
-│   ├── regression_models.py    # Linear, Polynomial, SVR
-│   ├── classification_models.py # Logistic, Decision Tree, SVM
-│   ├── clustering_models.py    # K-Means, Hierarchical
-│   ├── neural_networks.py      # MLP, RNN
-│   └── model_comparison.py     # Cross-validation & metrics
-│
-├── notebooks/                  # Jupyter notebooks
-│   ├── 01_exploratory_analysis.ipynb
-│   ├── 02_feature_engineering.ipynb
-│   ├── 03_supervised_models.ipynb
-│   ├── 04_unsupervised_models.ipynb
-│   └── 05_model_comparison.ipynb
-│
-├── results/                    # Model outputs
-│   ├── metrics/
-│   ├── plots/
-│   └── saved_models/
-│
-├── docs/                       # Documentation
-│   ├── technical_report.pdf
-│   ├── presentation.pptx
-│   └── methodology.md
-│
-└── tests/                      # Unit tests
-    └── test_feature_engineer.py
 ```
 
 ## 🧪 Methodology
@@ -292,7 +309,9 @@ MIT License - See [LICENSE](LICENSE) file for details
 
 - Coinbase for providing the Advanced Trade WebSocket API
 - Course Instructor: Mrs. Aashima
-- Data collection infrastructure: Access to Nvidia lab (GDX 1000 Xenon Server), courtesy of LPU.
+- Data collection infrastructure: Access to Nvidia lab (GDX 1000 Xenon Server), courtesy of LPU.  
+- https://www.kaggle.com/code/vbmokin/crypto-btc-advanced-analysis-forecasting/notebook  
+- https://corporatefinanceinstitute.com/resources/?topics=&types=86405  
 
 ---
 
