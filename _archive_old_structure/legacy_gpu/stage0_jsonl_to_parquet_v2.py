@@ -10,9 +10,9 @@ FIXED: Properly flattens nested JSON structure from Coinbase WebSocket API
 - Ticker: channel -> events -> tickers (multiple rows per line)
 
 Usage:
-    python gpu/stage0_jsonl_to_parquet_v2.py                    # Skip latest file (safe)
-    python gpu/stage0_jsonl_to_parquet_v2.py --include-latest   # Include all files (risky)
-    python gpu/stage0_jsonl_to_parquet_v2.py --validate          # Validate existing Parquet
+    python jsonl_to_parquet_v2.py                    # Skip latest file (safe)
+    python jsonl_to_parquet_v2.py --include-latest   # Include all files (risky)
+    python jsonl_to_parquet_v2.py --validate         # Validate existing Parquet
 """
 
 import json

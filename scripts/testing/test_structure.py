@@ -12,7 +12,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 def test_imports():
     """Test that all imports work correctly"""
-    print("🧪 Testing Project Structure\n")
+    print("Testing Project Structure\n")
     print("="*60)
     
     # Test 1: Config import
@@ -23,22 +23,22 @@ def test_imports():
             PARQUET_LEVEL2_DIR,
             COMPRESSION
         )
-        print(f"✅ Config imported successfully")
+        print(f"Config imported successfully")
         print(f"   JSONL_INPUT_DIR: {JSONL_INPUT_DIR}")
         print(f"   PARQUET_LEVEL2_DIR: {PARQUET_LEVEL2_DIR}")
         print(f"   COMPRESSION: {COMPRESSION}")
     except Exception as e:
-        print(f"❌ Config import failed: {e}")
+        print(f"Config import failed: {e}")
         return False
     
     # Test 2: Collector import
     print("\n[Test 2] Testing collector import...")
     try:
         from src.data.collector import CryptoDataCollector
-        print(f"✅ Collector imported successfully")
+        print(f"Collector imported successfully")
         print(f"   Class: {CryptoDataCollector.__name__}")
     except Exception as e:
-        print(f"❌ Collector import failed: {e}")
+        print(f"Collector import failed: {e}")
         return False
     
     # Test 3: Check utilities files exist (don't import due to cudf dependency)
@@ -50,18 +50,18 @@ def test_imports():
     ]
     for util_file in util_files:
         if Path(util_file).exists():
-            print(f"✅ Found: {util_file}")
+            print(f"Found: {util_file}")
         else:
-            print(f"❌ Missing: {util_file}")
+            print(f"Missing: {util_file}")
             return False
     
     # Test 4: Check GPU utilities exist (but don't import cudf)
     print("\n[Test 4] Checking GPU utility files exist...")
     gpu_mem_path = Path("src/utils/gpu_memory.py")
     if gpu_mem_path.exists():
-        print(f"✅ GPU utilities found: {gpu_mem_path}")
+        print(f"GPU utilities found: {gpu_mem_path}")
     else:
-        print(f"❌ GPU utilities not found: {gpu_mem_path}")
+        print(f"GPU utilities not found: {gpu_mem_path}")
         return False
     
     # Test 5: Check converter scripts exist
@@ -72,9 +72,9 @@ def test_imports():
     ]
     for script in converter_scripts:
         if Path(script).exists():
-            print(f"✅ Found: {script}")
+            print(f"Found: {script}")
         else:
-            print(f"❌ Missing: {script}")
+            print(f"Missing: {script}")
             return False
     
     # Test 6: Check archive structure
@@ -87,13 +87,13 @@ def test_imports():
     for dir_path in archive_dirs:
         if Path(dir_path).exists():
             count = len(list(Path(dir_path).iterdir()))
-            print(f"✅ Archive exists: {dir_path} ({count} items)")
+            print(f"Archive exists: {dir_path} ({count} items)")
         else:
-            print(f"❌ Archive missing: {dir_path}")
+            print(f"Archive missing: {dir_path}")
             return False
     
     print("\n" + "="*60)
-    print("🎉 All tests passed! Project structure is valid.")
+    print("All tests passed! Project structure is valid.")
     print("="*60)
     return True
 

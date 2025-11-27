@@ -24,7 +24,7 @@ import time
 def run_stage(stage_num, script_name, description):
     """Run a pipeline stage and track timing"""
     print("\n" + "="*80)
-    print(f"🚀 STAGE {stage_num}: {description}")
+    print(f"STAGE {stage_num}: {description}")
     print("="*80 + "\n")
     
     start_time = time.time()
@@ -37,23 +37,25 @@ def run_stage(stage_num, script_name, description):
         )
         
         elapsed = time.time() - start_time
-        print(f"\n✅ Stage {stage_num} completed in {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
+        print(f"\nStage {stage_num} completed in {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
         return True
         
     except subprocess.CalledProcessError as e:
-        print(f"\n❌ Stage {stage_num} failed with error code {e.returncode}")
+        print(f"\nStage {stage_num} failed with error code {e.returncode}")
         return False
 
 def main():
     """Execute full pipeline"""
     
     print("\n" + "="*80)
-    print("🏗️  FULL PIPELINE EXECUTION")
+    print("FULL PIPELINE EXECUTION")
     print("="*80)
     print("\nThis will run GPU-accelerated pipeline:")
-    print("  Stage 0: JSONL → Parquet conversion (GPU)")
-    print("  Stage 2: Order book reconstruction (GPU)")
-    print("  Stage 3: ML feature engineering (GPU)")
+    print("  Stage 0: JSONL → Parquet conversion")
+    print("  Stage 1: Data quality verification.")
+    print("  Stage 2: Order book reconstruction")
+    print("  Stage 3: Feature engineering.")
+    print("  Stage 4 ...")
     print("\nEstimated time: ~20 minutes on NVIDIA DGX-A100")
     print("="*80 + "\n")
     
@@ -67,7 +69,7 @@ def main():
     
     # Stage 0: JSONL → Parquet (GPU)
     print("\n" + "="*80)
-    print(f"🚀 STAGE 0: JSONL → Parquet Conversion (GPU)")
+    print(f"STAGE 0: JSONL → Parquet Conversion (GPU)")
     print("="*80 + "\n")
     start_time = time.time()
     try:
@@ -77,35 +79,35 @@ def main():
             capture_output=False
         )
         elapsed = time.time() - start_time
-        print(f"\n✅ Stage 0 completed in {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
+        print(f"\nStage 0 completed in {elapsed:.1f} seconds ({elapsed/60:.1f} minutes)")
     except subprocess.CalledProcessError as e:
-        print(f"\n❌ Stage 0 failed with error code {e.returncode}")
-        print("\n❌ Pipeline aborted at Stage 0")
+        print(f"\nStage 0 failed with error code {e.returncode}")
+        print("\nPipeline aborted at Stage 0")
         return
     
     # Stage 2: Order Book Reconstruction
     if not run_stage(2, "stage2_orderbook_builder.py", "Order Book Reconstruction"):
-        print("\n❌ Pipeline aborted at Stage 2")
+        print("\nPipeline aborted at Stage 2")
         return
     
     # Stage 3: ML Features
     if not run_stage(3, "stage3_ml_features.py", "ML Feature Engineering"):
-        print("\n❌ Pipeline aborted at Stage 3")
+        print("\nPipeline aborted at Stage 3")
         return
     
     # Success!
     total_time = time.time() - pipeline_start
     
     print("\n" + "="*80)
-    print("🎉 PIPELINE COMPLETE!")
+    print("PIPELINE COMPLETE!")
     print("="*80)
     print(f"\nTotal runtime: {total_time:.1f} seconds ({total_time/60:.1f} minutes)")
-    print("\n📁 Output files:")
+    print("\nOutput files:")
     print("  - datasets/raw_csv/level2_*.csv")
     print("  - datasets/raw_csv/ticker_*.csv")
     print("  - datasets/market_snapshots.csv")
     print("  - datasets/crypto_features.csv")
-    print("\n🔥 Ready for ML modeling!")
+    print("\nReady for ML modeling!")
     print("="*80 + "\n")
 
 if __name__ == '__main__':

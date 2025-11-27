@@ -18,6 +18,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.1] - 2025-11-26
+
+### Added
+- Added specific exception handling (FileNotFoundError, JSONDecodeError, etc.)
+- Added error tracking and logging throughout conversion pipeline
+- Added verify_paths.py in scripts/testing to test if all paths work.
+
+### Changed
+- updated CHANGELOG.md
+
+### Fixed  
+- corrected the pathways, where they still used old file structure's file system.
+- fixed jsonl_to_parquet.py to completely work (resolved date time formatting error mismatch (cudf) and other simple fixes)
+
+### Misc  
+- 
+
+---
+
 ## [0.1.0] - 2025-11-22
 
 ### Added - Major Project Restructure
@@ -58,22 +77,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This restructure addresses DEBT-001 (hard-coded paths) by centralizing configuration
 - Improves code maintainability and professional appearance for portfolio/CV
 - All existing functionality preserved, just reorganized
-
----
-
-## [] - 2025-11-
-
-### Added
-- 
-
-### Changed
-- how i am creating snapshots in feature_engineering.py
-
-### Fixed  
-- fixed the freeze/extreme slowness caused when running feature_engineering.py as it caused memory explosion. look up [Bug 002](BUGS.md)
-
-### Misc  
-- 
 
 ---
 
@@ -153,7 +156,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  |
 | 0.0.4   | 2025-11-08 | 24/7 collection system               | ✅ Complete(14 days done on 2005-11-21) |
 | 0.1.0   | 2025-11-22 | Complete project restructuring       | ✅ Complete                                    |
-| 0.1.0   | 2025-11-22 | Feature engineering                  | 🟡 In Progress                         |
+| 0.1.0   | 2025-11-22 | Data Exploration and Feature engineering                  | 🟡 In Progress                         |
 | 0.4.0   | TBD        | Unsupervised learning                | 🔴 Planned                             |
 | 0.5.0   | TBD        | Supervised learning (regression)     | 🔴 Planned                             |
 | 0.6.0   | TBD        | Supervised learning (classification) | 🔴 Planned                             |

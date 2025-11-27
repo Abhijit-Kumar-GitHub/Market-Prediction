@@ -342,33 +342,33 @@ if __name__ == '__main__':
     print("GPU PIPELINE CONFIGURATION")
     print("=" * 80)
     
-    print(f"\n📁 Paths:")
+    print(f"\nPaths:")
     print(f"  Raw CSV:  {RAW_CSV_DIR}")
     print(f"  Parquet:  {PARQUET_DIR}")
     print(f"  Models:   {MODELS_DIR}")
     
-    print(f"\n🎮 GPU Settings:")
+    print(f"\nGPU Settings:")
     print(f"  Device:   GPU {GPU_DEVICE_ID}")
     print(f"  Memory:   {GPU_MEMORY_LIMIT_GB} GB")
     
-    print(f"\n⚙️  Processing:")
+    print(f"\nProcessing:")
     print(f"  Chunk size:     {CHUNK_SIZE_ROWS:,} rows")
     print(f"  Snapshot freq:  {SNAPSHOT_INTERVAL_SEC}s")
     print(f"  Products:       {', '.join(PRODUCTS)}")
     
-    print(f"\n📊 Features:")
+    print(f"\nFeatures:")
     print(f"  Rolling windows:  {ROLLING_WINDOWS}")
     print(f"  Technical indicators: {ENABLE_TECHNICAL_INDICATORS}")
     print(f"  VPIN enabled:     {ENABLE_VPIN}")
     
-    print(f"\n🤖 Model Training:")
+    print(f"\nModel Training:")
     print(f"  Train/Val/Test:  {TRAIN_DAYS}/{VAL_DAYS}/{TEST_DAYS} days")
     print(f"  Target horizon:  {TARGET_HORIZON_SEC}s")
     
-    print(f"\n✓ Creating directories...")
+    print(f"\nCreating directories...")
     create_directories()
     
-    print(f"\n✓ Testing filter generation...")
+    print(f"\nTesting filter generation...")
     filters = get_parquet_filters('2025-11-01', '2025-11-15', 'BTC-USD')
     print(f"  Filters: {filters}")
     

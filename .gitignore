@@ -39,12 +39,25 @@ venv.bak/
 .spyderproject
 .spyproject
 
+# Ignore all CSV/JSON/Excel files to save space
+*.csv
+*.json
+*.jsonl
+*.xlsx
+*.pkl
+*.h5
+*.pt
+*.pth
+
 
 # Runtime / logs
 *.log
 *.pid
 *.seed
 *.pid.lock
+
+# --- System ---
+.DS_Store
 
 # custom
 

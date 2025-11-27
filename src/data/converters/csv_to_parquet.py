@@ -6,8 +6,8 @@ One-time conversion of existing CSV data to optimized Parquet format.
 This enables 5-10x compression, 10-20x faster loading, and partition pruning.
 
 Usage:
-    python gpu/stage0_csv_to_parquet.py
-    python gpu/stage0_csv_to_parquet.py --input datasets/raw_csv --output datasets/parquet
+    python src/data/converters/csv_to_parquet.py
+    python src/data/converters/csv_to_parquet.py --input datasets/raw_csv --output datasets/parquet
 """
 
 import argparse
@@ -84,17 +84,17 @@ def convert_level2_data(input_dir: Path, output_dir: Path,
         chunk_size: Rows per chunk
     """
     print("\n" + "=" * 80)
-    print("📊 CONVERTING LEVEL2 DATA (Order Book Events)")
+    print("CONVERTING LEVEL2 DATA (Order Book Events)")
     print("=" * 80)
     
     # Find all level2 CSV files
     csv_files = sorted(input_dir.glob('level2_*.csv'))
     
     if not csv_files:
-        print(f"⚠️  No level2_*.csv files found in {input_dir}")
+        print(f"No level2_*.csv files found in {input_dir}")
         return
     
-    print(f"\n📂 Found {len(csv_files)} Level2 CSV files:")
+    print(f"\nFound {len(csv_files)} Level2 CSV files:")
     for f in csv_files:
         size_mb = f.stat().st_size / 1024**2
         print(f"   - {f.name} ({size_mb:.1f} MB)")
@@ -112,7 +112,7 @@ def convert_level2_data(input_dir: Path, output_dir: Path,
             chunk_size=chunk_size
         )
     
-    print("\n✅ Level2 conversion complete!")
+    print("\nLevel2 conversion complete!")
 
 
 def convert_ticker_data(input_dir: Path, output_dir: Path,
@@ -127,17 +127,17 @@ def convert_ticker_data(input_dir: Path, output_dir: Path,
         chunk_size: Rows per chunk
     """
     print("\n" + "=" * 80)
-    print("📊 CONVERTING TICKER DATA (Market Snapshots)")
+    print("CONVERTING TICKER DATA (Market Snapshots)")
     print("=" * 80)
     
     # Find all ticker CSV files
     csv_files = sorted(input_dir.glob('ticker_*.csv'))
     
     if not csv_files:
-        print(f"⚠️  No ticker_*.csv files found in {input_dir}")
+        print(f"No ticker_*.csv files found in {input_dir}")
         return
     
-    print(f"\n📂 Found {len(csv_files)} Ticker CSV files:")
+    print(f"\nFound {len(csv_files)} Ticker CSV files:")
     for f in csv_files:
         size_mb = f.stat().st_size / 1024**2
         print(f"   - {f.name} ({size_mb:.1f} MB)")
@@ -155,7 +155,7 @@ def convert_ticker_data(input_dir: Path, output_dir: Path,
             chunk_size=chunk_size
         )
     
-    print("\n✅ Ticker conversion complete!")
+    print("\nTicker conversion complete!")
 
 
 def validate_conversion(output_dir: Path) -> None:
@@ -166,7 +166,7 @@ def validate_conversion(output_dir: Path) -> None:
         output_dir: Directory with Parquet files
     """
     print("\n" + "=" * 80)
-    print("✅ VALIDATING CONVERSION")
+    print("VALIDATING CONVERSION")
     print("=" * 80)
     
     # Level2 validation
@@ -218,7 +218,7 @@ def validate_conversion(output_dir: Path) -> None:
         print(f"   Compression:  {compression_ratio:.1f}x")
         print(f"   Savings:      {csv_size_mb - parquet_size_mb:.1f} MB ({(1-parquet_size_mb/csv_size_mb)*100:.1f}%)")
     
-    print("\n✅ Validation complete!")
+    print("\nValidation complete!")
 
 
 def main():
@@ -226,7 +226,7 @@ def main():
     args = parse_args()
     
     print("=" * 80)
-    print("🚀 CSV → PARQUET CONVERSION (GPU-ACCELERATED)")
+    print("CSV → PARQUET CONVERSION (GPU-ACCELERATED)")
     print("=" * 80)
     print(f"\nInput:       {args.input}")
     print(f"Output:      {args.output}")
@@ -261,15 +261,15 @@ def main():
     
     # Final summary
     print("\n" + "=" * 80)
-    print("🎉 CONVERSION COMPLETE!")
+    print("CONVERSION COMPLETE!")
     print("=" * 80)
     
-    print("\n✅ Next steps:")
+    print("\nNext steps:")
     print("   1. Run Stage 2: python gpu/stage2_orderbook_gpu.py")
     print("   2. Run Stage 3: python gpu/stage3_features_gpu.py")
     print("   3. Train models: python gpu/stage4_ml_training_gpu.py")
     
-    print("\n💡 Tips:")
+    print("\nTips:")
     print("   - Use partition pruning: read_parquet(..., filters=[('date', '>=', '2025-11-01')])")
     print("   - Load only needed columns: read_parquet(..., columns=['timestamp', 'price'])")
     print("   - Process day-by-day to avoid OOM")
