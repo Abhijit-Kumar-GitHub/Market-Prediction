@@ -18,6 +18,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.2] - 2025-11-29
+
+### Added
+- Created comprehensive data quality validation notebook (`notebooks/01_data_quality_validation.ipynb`)
+  - Multi-dimensional quality audit: Completeness, Validity, Integrity, Consistency
+  - Temporal coverage analysis (session-aware validation)
+  - IQR-based outlier detection (3×IQR bounds for price anomalies)
+  - Bid/ask balance validation
+  - Timestamp continuity checks with gap detection
+  - Missing value analysis on critical columns
+  - Duplicate record detection
+  - Batch validation across all 32 partitions with consolidated reporting
+- GPU-accelerated validation using cuDF for 26M+ row datasets
+- Session detection logic for handling collection restarts (sequence number resets)
+- Automated quality scorecard with configurable thresholds
+- Visualization: price distribution and update frequency over time
+
+### Changed
+- Shifted validation strategy from sequence-based to temporal coverage-based
+  - Reason: Collection restarts cause sequence resets, making cross-partition validation impossible
+  - New approach: Validate based on time coverage (gaps >5 min flagged)
+  - Achieved 99.63% mean temporal coverage across all partitions
+
+### Fixed
+- Resolved sequence validation false positives caused by collection restarts
+- Corrected price outlier detection using statistical bounds (3×IQR) instead of arbitrary thresholds
+
+### Validation Results
+- 32 partitions validated (16 dates × 2 products: BTC-USD, ETH-USD)
+- Mean temporal coverage: 99.63%
+- Average sessions per day: 5.1 (handles ~4 restarts/day)
+- Data completeness: Production-ready for orderbook reconstruction
+
+### Misc
+- Validation confirms data quality meets production standards for ML pipeline
+- All partitions passed temporal coverage threshold (>95%) 
+
+---
+
 ## [0.1.1] - 2025-11-26
 
 ### Added

@@ -75,6 +75,54 @@ Verified by intentionally disconnecting/reconnecting websocket and checking for 
 
 ---
 
+### [BUG-004] Sequence-based validation fails with collection restarts
+**Status:** 🟢 Resolved (v0.1.2)  
+**Priority:** High  
+**Reported:** 2025-11-27  
+**Resolved:** 2025-11-29
+
+**Description:**
+Data quality validation using sequence number completeness produced false positives, showing massive data gaps (50%+ missing) when actual data was complete. Cross-partition sequence linking was impossible.
+
+**Root Cause:**
+Collection restarts (4-5 per day) reset sequence numbers to 1, causing:
+- Overlapping sequence ranges within same partition (Session 1: seq 1→500k, Session 2: seq 1→800k)
+- Cannot distinguish between "missing data" and "session boundary"
+- Sequence-based completeness calculation fundamentally broken for multi-session datasets
+
+**Example:**
+```
+Same day partition contains:
+Session 1: seq 1 → 500,000 (morning)
+Session 2: seq 1 → 800,000 (afternoon - sequences restart!)
+Session 3: seq 1 → 300,000 (evening - another restart!)
+
+Sequence validation sees: max(800k) - min(1) + 1 = 800,001 expected
+Actual unique sequences: ~1.6M (across all sessions)
+False conclusion: 50% data loss (completely wrong!)
+```
+
+**Solution:**
+Shifted to **temporal coverage validation** instead of sequence-based:
+1. **Time-based gaps**: Flag periods >5 min with no updates (real data loss)
+2. **Update rate**: Verify orderbook updates at expected frequency
+3. **Session detection**: Identify restarts by sequence resets (negative diff)
+4. **Coverage %**: (Time with data / Total time span) × 100
+
+**Results After Fix:**
+- Mean temporal coverage: **99.63%** across all 32 partitions
+- Correctly identifies 5.1 sessions per day on average
+- No false positives for data gaps
+- Validation approach now production-ready
+
+**Files Modified:**
+- `notebooks/01_data_quality_validation.ipynb` (Cells 14-17)
+
+**Key Insight:**
+For streaming data with connection management, **time-based validation is the only reliable approach**. Sequence numbers are session-local, not globally continuous.
+
+---
+
 ## ⚠️ Known Issues
 
 ### [ISSUE-001] WebSocket connection occasionally drops
@@ -89,7 +137,7 @@ Coinbase WebSocket disconnects randomly every 6-12 hours
 `run_collector_24x7.py` automatically restarts on disconnect
 
 **Long-term Fix:**
-Fixed it by ensuring thats restarts are not just for the crashed but websocket disconnects and normal closure of the script. it will keep on running until it fails consecutively for 8 times. 
+Fixed it by ensuring thats restarts are not just for the crashed but websocket disconnects and normal closure of the script. it will keep on running until it fails consecutively for 8 times. Or maybe Dockerise it or host on virtual vm ... 
 ---
 
 ## 📋 Technical Debt
@@ -191,11 +239,11 @@ Still doing research regarding that
 
 | Category | Open  | In Progress | Resolved |
 |----------|-------|-------------|----------|
-| Bugs | 0     | 0 | 1        |
-| Issues | 0     | 0 | 0        |
-| Technical Debt | 2     | 0 | 0        |
+| Bugs | 0     | 0 | 4        |
+| Issues | 0     | 0 | 1        |
+| Technical Debt | 2     | 0 | 2        |
 | Features | 3     | 0 | 0        |
-| **Total** | **5** | **0** | **1**    |
+| **Total** | **5** | **0** | **7**    |
 
 ---
 
@@ -236,4 +284,4 @@ How to fix?
 
 ---
 
-*Last Updated: 2025-11-23*
+*Last Updated: 2025-11-29*
