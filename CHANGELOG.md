@@ -10,11 +10,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### To Do
-- Complete orderbook reconstruction (Stage 2) with GPU acceleration
-- Complete ML feature engineering (Stage 3) with GPU acceleration
-- Train all supervised models (Stage 4)
+- Train all unsupervised models (Stage 4)
+- Train all supervised models (stage 4b)
+- Train deep learning models (Stage 4c)
 - Complete technical report
 - Create presentation slides
+
+---
+
+## [0.1.3] - 2025-12-01
+
+### Added
+- Completed orderbook reconstruction notebook (`notebooks/02_orderbook_reconstruction.ipynb`)
+  - GPU-accelerated orderbook state reconstruction using cuDF
+  - 10-second interval snapshot generation
+  - Bid/ask depth extraction (top 10 levels)
+  - Price level aggregation and volume tracking
+  - Spread calculation (absolute and basis points)
+  - Mid-price variants: simple mid, weighted mid, VWAP mid
+  - Order imbalance metrics (L5, L10)
+  - EMA-based outlier filtering for price anomalies
+  - Crossed book detection and handling
+
+### Changed
+
+### Technical Details
+- Snapshot interval: 10 seconds (configurable)
+- Orderbook depth: Top 10 bid/ask levels
 
 ---
 
@@ -191,15 +213,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date       | Description                          | Status                                 |
 |---------|------------|--------------------------------------|----------------------------------------|
-| 0.0.1   | 2025-10-25 | Initial data collector               | ✅ Complete                             
- |
-| 0.0.4   | 2025-11-08 | 24/7 collection system               | ✅ Complete(14 days done on 2005-11-21) |
-| 0.1.0   | 2025-11-22 | Complete project restructuring       | ✅ Complete                                    |
-| 0.1.0   | 2025-11-22 | Data Exploration and Feature engineering                  | 🟡 In Progress                         |
-| 0.4.0   | TBD        | Unsupervised learning                | 🔴 Planned                             |
-| 0.5.0   | TBD        | Supervised learning (regression)     | 🔴 Planned                             |
-| 0.6.0   | TBD        | Supervised learning (classification) | 🔴 Planned                             |
-| 0.7.0   | TBD        | Model comparison & evaluation        | 🔴 Planned                             |
+| 0.0.1   | 2025-10-25 | Initial data collector               | ✅ Complete                             |
+| 0.0.4   | 2025-11-08 | 24/7 collection system               | ✅ Complete (14 days done on 2025-11-21) |
+| 0.1.0   | 2025-11-22 | Complete project restructuring       | ✅ Complete                             |
+| 0.1.2   | 2025-11-29 | Data quality validation              | ✅ Complete                             |
+| 0.1.3   | 2025-12-01 | Orderbook reconstruction & features  | ✅ Complete                             |
+| 0.2.0   | TBD        | Unsupervised learning (clustering)   | 🔴 Planned                             |
+| 0.3.0   | TBD        | Supervised learning (all models)     | 🔴 Planned                             |
+| 0.4.0   | TBD        | Deep learning (MLP, LSTM, Transformer)| 🔴 Planned                             |
+| 0.5.0   | TBD        | Model comparison & evaluation        | 🔴 Planned                             |
 | 1.0.0   | TBD        | Complete documentation & publication | 🔴 Planned                             |
 
 ---

@@ -123,6 +123,45 @@ For streaming data with connection management, **time-based validation is the on
 
 ---
 
+### [BUG-005] Target variable shift calculation incorrect
+**Status:** 🟢 Resolved (v0.1.3)  
+**Priority:** High  
+**Reported:** 2025-12-01  
+**Resolved:** 2025-12-01
+
+**Description:**
+Feature engineering notebook used `shift(-10)` for 60-second price prediction target, but at 10-second snapshot intervals, this actually represents 100 seconds (10 × 10s = 100s), not 60 seconds.
+
+**Root Cause:**
+Misunderstanding of shift semantics with irregular time intervals. `shift(-N)` shifts by N rows, not N time units. With 10-second snapshots:
+- `shift(-6)` = 6 snapshots × 10s = 60 seconds ✓
+- `shift(-10)` = 10 snapshots × 10s = 100 seconds ✗
+
+**Impact:**
+- Target variable was misaligned with intended prediction horizon
+- Correlation analysis showed weaker results (longer horizon = less predictability)
+- Model would learn to predict 100s ahead instead of 60s
+
+**Solution:**
+Corrected shift values for all target horizons:
+```python
+horizons = {
+    '10s': 1,   # 1 snapshot × 10s = 10 seconds
+    '30s': 3,   # 3 snapshots × 10s = 30 seconds
+    '60s': 6,   # 6 snapshots × 10s = 60 seconds (FIXED!)
+}
+```
+
+Also added multi-horizon targets to test which horizon is most predictable.
+
+**Files Modified:**
+- `notebooks/03_feature_engineering.ipynb`
+
+**Lesson Learned:**
+Always verify time-based calculations with actual data intervals, especially when working with resampled/snapshot data.
+
+---
+
 ## ⚠️ Known Issues
 
 ### [ISSUE-001] WebSocket connection occasionally drops
@@ -239,11 +278,11 @@ Still doing research regarding that
 
 | Category | Open  | In Progress | Resolved |
 |----------|-------|-------------|----------|
-| Bugs | 0     | 0 | 4        |
+| Bugs | 0     | 0 | 5        |
 | Issues | 0     | 0 | 1        |
 | Technical Debt | 2     | 0 | 2        |
 | Features | 3     | 0 | 0        |
-| **Total** | **5** | **0** | **7**    |
+| **Total** | **5** | **0** | **8**    |
 
 ---
 
@@ -284,4 +323,4 @@ How to fix?
 
 ---
 
-*Last Updated: 2025-11-29*
+*Last Updated: 2025-12-01*
