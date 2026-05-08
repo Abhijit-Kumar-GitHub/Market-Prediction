@@ -288,10 +288,20 @@ This project was developed as part of **Predictive Analytics** coursework, cover
 
 - **Languages:** Python 3.8+
 - **Data Collection:** WebSocket, JSON
-- **Data Processing:** Pandas, NumPy
-- **Machine Learning:** Scikit-learn, TensorFlow/Keras
+- **Data Processing:** Pandas, NumPy, cuDF (GPU)
+- **Machine Learning:** Scikit-learn, cuML (GPU), TensorFlow/Keras
 - **Visualization:** Matplotlib, Seaborn, Plotly
 - **Development:** Jupyter Notebook, Git
+
+## 📖 Documentation
+
+- 🚀 **[Getting Started Guide](docs/GETTING_STARTED.md)** - Setup and workflow
+- 🔑 **[Clustering Best Practices](docs/CLUSTERING_BEST_PRACTICES.md)** - Critical insights for regime discovery
+- 📋 **[Feature Selection Quick Reference](docs/FEATURE_SELECTION_QUICK_REF.md)** - Essential for unsupervised learning
+- 📊 **[Feature Importance](docs/FEATURE_IMPORTANCE_README.md)** - Understanding predictive features
+- 📈 **[Power BI Import Guide](docs/POWER_BI_IMPORT_GUIDE.md)** - Visualization setup
+
+**Important**: If you're working with clustering/regime discovery, read the feature selection documentation first!
 
 ## 📄 License
 

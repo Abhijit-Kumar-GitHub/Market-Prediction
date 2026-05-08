@@ -45,6 +45,9 @@ A CV-worthy project has **three key elements**:
 
 ### Phase 3: Model Training (Week 4-6)
 - [ ] **Week 4:** Unsupervised learning (K-Means, Hierarchical)
+  - ⚠️ **CRITICAL**: Read `docs/FEATURE_SELECTION_QUICK_REF.md` first!
+  - Use ONLY relative features (spread_bps, imbalance_l5, etc.)
+  - Never mix absolute prices with relative features in clustering
 - [ ] **Week 5:** Supervised regression (Linear, Polynomial, SVR)
 - [ ] **Week 6:** Supervised classification (Logistic, Decision Tree, SVM)
 - [ ] Save trained models in `results/saved_models/`

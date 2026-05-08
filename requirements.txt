@@ -2,7 +2,7 @@
 websocket-client>=1.9.0
 
 # Data Processing
-pandas>=2.0.0,<2.3.0  # Compatible with cuDF if using GPU
+pandas>=2.1.0,<2.3.0  # Compatible with cuDF if using GPU
 numpy>=1.24.0
 
 # Visualization

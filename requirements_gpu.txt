@@ -2,7 +2,7 @@
 # Install RAPIDS cuDF and cuPy for GPU acceleration
 
 # IMPORTANT: Install base requirements first with compatible pandas version:
-# pip install "pandas>=2.0.0,<2.3.0" numpy matplotlib seaborn scikit-learn xgboost lightgbm shap websocket-client
+# pip install "pandas>=2.1.0,<2.3.0" numpy matplotlib seaborn scikit-learn xgboost lightgbm shap websocket-client
 
 # Then install GPU packages:
 # pip install -r requirements_gpu.txt

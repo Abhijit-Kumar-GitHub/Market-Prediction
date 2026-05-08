@@ -1,0 +1,17 @@
+# Files to exclude from code dataset upload
+.env
+.git/
+.gitignore
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+
+# Exclude large data folders (uploaded separately as data dataset)
+datasets/
+crypto_data_jsonl/
+outputs/models/
+outputs/reports/
+
+# Exclude archive
+_archive_old_structure/
